@@ -1,4 +1,5 @@
 import React from "react";
+import NavbarPage from "../Navbar";
 
 function Header ()
 {
@@ -10,4 +11,4 @@ function Header ()
     
     )
 }
-export default Header
+export default Header;
