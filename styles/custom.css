@@ -83,3 +83,6 @@ a {
 .btn.btn-outline-warning:hover{
     color: #000;
 }
+.navbar .hide-dd-icon > a::after{
+    display: none !important;
+}
