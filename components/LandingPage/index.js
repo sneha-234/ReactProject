@@ -2,6 +2,7 @@ import React from "react";
 import TopSection from "./topsection";
 import CounterSections from "./countersections";
 import BecomeAnInstructor from "./becomeAnInstructor";
+import ReviewRating from "./ratingsandreview";
 
 function Landling ()
 {
@@ -10,6 +11,7 @@ function Landling ()
         <TopSection/>
         <CounterSections/>
         <BecomeAnInstructor/>
+        <ReviewRating/>
         </>
     )
 }

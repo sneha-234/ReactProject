@@ -5,7 +5,7 @@ import { BiSolidBadgeCheck } from "react-icons/bi";
 import { FaEnvelope, FaCheckCircle } from "react-icons/fa";
 
 import NewStudentImg from "./newStudentImg";
-import DotSvg from "./dotSvg";
+import DotSvg from "./dotsvg";
 import styles from "./styles.module.css";
 
 function TopSection() {
@@ -136,16 +136,14 @@ function TopSection() {
             </figure>
 
             <div className="p-2 bg-white shadow rounded-3 position-absolute top-50 start-0 translate-middle-y mt-n7 d-none d-sm-block">
-              <Image src= "/assets/images/client/science.svg"  width={50}
-                height={50} alt="Icon" />
+              <img src="assests/images/client/science.svg" alt="Icon" />
             </div>
             <div className="p-2 bg-white shadow rounded-3 position-absolute top-0 end-0 me-5">
-              <Image src="/assets/images/client/angular.svg"  width ={50} height ={50}alt="Icon" />
+              <img src="assests/images/client/angular.svg" alt="Icon" />
             </div>
             <div className="p-2 bg-white shadow rounded-3 position-absolute top-50 end-0 translate-middle-y mt-5 ms-5 d-none d-lg-block z-index-9">
-              <Image src="/assets/images/client/figma.svg"  width ={50} height ={50} alt="Icon" />
+              <img src="assests/images/client/figma.svg" alt="Icon" />
             </div>
-
             <div className="p-3 bg-blur border border-light shadow rounded-4 position-absolute bottom-0 start-0 z-index-9 d-none d-xl-block mb-5 ms-5">
               <div className="d-flex justify-content-between align-items-center">
                 <span className="icon-lg bg-warning rounded-circle">
@@ -168,27 +166,15 @@ function TopSection() {
 
             <div
               className="p-3 bg-success d-inline-block rounded-4 shadow-lg position-absolute top-50 end-0 translate-middle-y mt-n7 z-index-1 d-none d-md-block"
-              //   style="
-              //   background: url(assets/images/pattern/01.png) no-repeat center
-              //     center;
-              //   background-size: cover;
-              // "
+                style={{
+                background: "url(assets/images/pattern/01.png) no-repeat center center"}
+                }
+              
             >
               <p className="text-white">Our daily new students</p>
 
               <ul className="avatar-group mb-0">
-                {/* <li className="avatar avatar-sm">
-                  <NewStudentImg avatar="01" />
-                </li>
-                <li className="avatar avatar-sm">
-                  <NewStudentImg avatar="02" />
-                </li>
-                <li className="avatar avatar-sm">
-                  <NewStudentImg avatar="03" />
-                </li>
-                <li className="avatar avatar-sm">
-                  <NewStudentImg avatar="04" />
-                </li> */}
+    
 
                 {["01", "02", "03", "04"].map((name, index) => (
                   <li className="avatar avatar-sm" key={`${name}-${index}`}>
@@ -212,7 +198,6 @@ function TopSection() {
                 width={500}
                 height={500}
                 alt="logo"/>
-             {/* < img src= "/assets/images/07.png" alt="alt image" /> */}
             </div>
           </div>
         </div>
