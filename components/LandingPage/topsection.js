@@ -136,13 +136,13 @@ function TopSection() {
             </figure>
 
             <div className="p-2 bg-white shadow rounded-3 position-absolute top-50 start-0 translate-middle-y mt-n7 d-none d-sm-block">
-              <img src="assests/images/client/science.svg" alt="Icon" />
+              <Image src="assests/images/client/science.svg" alt="Icon" width={50} height={50} />
             </div>
             <div className="p-2 bg-white shadow rounded-3 position-absolute top-0 end-0 me-5">
-              <img src="assests/images/client/angular.svg" alt="Icon" />
+              <Image src="assests/images/client/angular.svg" alt="Icon" width={50} height={50}/>
             </div>
             <div className="p-2 bg-white shadow rounded-3 position-absolute top-50 end-0 translate-middle-y mt-5 ms-5 d-none d-lg-block z-index-9">
-              <img src="assests/images/client/figma.svg" alt="Icon" />
+              <Image src="assests/images/client/figma.svg" alt="Icon"  width={50} height={50}/>
             </div>
             <div className="p-3 bg-blur border border-light shadow rounded-4 position-absolute bottom-0 start-0 z-index-9 d-none d-xl-block mb-5 ms-5">
               <div className="d-flex justify-content-between align-items-center">
