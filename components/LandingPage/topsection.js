@@ -192,7 +192,7 @@ function TopSection() {
               </ul>
             </div>
 
-            <div className="position-relative">
+            <div className="position-relative" >
             <Image
                 src = "/assests/images/07.png"
                 width={500}
