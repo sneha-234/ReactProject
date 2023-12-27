@@ -6,7 +6,7 @@
 
 .contactFormHeading
  {
-    color: #A8344A;
+    color: #612a2a;
     z-index: 10;
     position: relative;
     font-family: 'Josefin Sans', sans-serif;
@@ -17,7 +17,8 @@
 .contactFormparagh
 { 
     color: #fff; 
-    font-family: 'Josefin Sans', sans-serif;}
+    font-family: 'Josefin Sans', sans-serif;
+}
 
 .inputFormControl 
     

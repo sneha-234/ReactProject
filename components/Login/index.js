@@ -3,9 +3,16 @@ import HeadPage from "../Layout/headPage";
 import HEAD_TITLE from "@/utils/titleConstant";
 import styles from "./style.module.css";
 import { Button, Form } from "react-bootstrap";
+import { ErrorMessage, Field, Formik } from "formik";
+import * as yup from 'yup';
 import {FaArrowLeft, FaArrowRight, FaLock} from "react-icons/fa"
 
 function Login() {
+
+   const schema = yup.object().shape({
+    email: yup.string().required().email(),
+    password:yup.string().min(5).required()
+})
   return (
     <>
       <HeadPage title={HEAD_TITLE.login}>
@@ -13,7 +20,18 @@ function Login() {
           <div className="container my-3 pt-5">
             <div className="row d-flex justify-content-center mt-3">
               <div className="col-lg-5 col-md-7 col-12">
-                <Form noValidate onSubmit={() => console.log("====submit==")}>
+                <Formik 
+                initialValues={{
+                  email: "",
+                  password: "",
+                }}
+                validationSchema={schema}
+                onSubmit={(values, actions)=> {
+                  actions.setSubmitting(false);
+                }}
+                >
+                  {({handleSubmit}) => (
+                <Form noValidate onSubmit={handleSubmit}>
                   <div
                     className={`${styles.contactFormWrapper} bg-primary bg-opacity-10 p-md-5 p-2 pt-4 rounded`}
                   >
@@ -37,7 +55,8 @@ function Login() {
                         </p>
                       </div>
                       <div className="col-12 my-2">
-                        <Form.Control
+                        <Field
+          
                           type="text"
                           name="email"
                           className={`form-control ${styles.inputFormControl} shadow-none`}
@@ -45,14 +64,18 @@ function Login() {
                           aria-label="Email"
                           // value={values.firstName}
                           // onChange={handleChange}
-                          // isValid={touched.firstName && !errors.firstName}
+                           //isValid={touched.email && !errors.errors}
                         />
+                        <ErrorMessage
+                        name="email"
+                        component ="div"
+                        className="text-danger"/>
                         <Form.Control.Feedback>
                           Looks good!
                         </Form.Control.Feedback>
                       </div>
                       <div className="col-12 my-2">
-                        <Form.Control
+                        <Field
                           type="password"
                           name="password"
                           className={`form-control ${styles.inputFormControl} shadow-none`}
@@ -62,6 +85,10 @@ function Login() {
                           // onChange={handleChange}
                           // isValid={touched.firstName && !errors.firstName}
                         />
+                        <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger" />
                         <Form.Control.Feedback>
                           Looks good!
                         </Form.Control.Feedback>
@@ -88,6 +115,8 @@ function Login() {
                     </div>
                   </div>
                 </Form>
+                )}
+                </Formik>
               </div>
             </div>
           </div>
