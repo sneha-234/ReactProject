@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import HeadPage from "../Layout/headPage";
-import HEAD_TITLES from "@/utils/titleConstant";
+import HEAD_TITLE from "@/utils/titleConstant";
 import styles from "./style.module.css";
-import { Alert, Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { Field, Formik } from "formik";
 import axios from "axios";
-import { FaLock, FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/router";
+
 import * as yup from "yup";
 import InputField from "../fields";
-import AlertMessage from "./Alert"
+import { loginService } from "@/services/authservices";
+import { FaArrowLeft, FaArrowRight, FaLock } from "react-icons/fa";
 
 const defaultValues = {
   email: "",
@@ -16,45 +18,38 @@ const defaultValues = {
 };
 
 function Login() {
-  const [alert, setAlert] = useState(null);
+  const router = useRouter();
 
-  const handleFormSubmit = (values) => {
-    axios
-      .post("https://reqres.in/api/login", {
-        email: values.email,
-        password: values.password,
-      })
-      .then(function (response) {
-        localStorage.setItem("userAuthToken", response.data.token);
-        window.location = "/home";
-      })
-      .catch(function (error) {
-        if (error?.response?.status === 400) {
-          setAlert({
-            variant: "danger",
-            message: error.response?.data?.error,
-          });
-        } else {
-          setAlert({
-            variant: "danger",
-            message: error.message,
-          });
-        }
-      });
+  const handleFormSubmit = async (values) => {
+    const res = await loginService({
+      password: values.password,
+      email: values.email,
+    });
+
+    if (res.success) {
+      router.replace("./Users");
+    } else {
+      alert(res.message);
+    }
+   
   };
 
   const validationSchema = yup.object().shape({
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(20),
+
   });
 
   return (
     <>
-      <HeadPage title={HEAD_TITLES.login}>
+      <HeadPage title={HEAD_TITLE.login}>
         <section>
           <div className="container my-3 pt-5">
             <div className="row d-flex justify-content-center mt-3">
               <div className="col-lg-5 col-md-7 col-12">
+                {/* <Alert key="danger" variant="danger">
+                  This is a alert—check it out!
+                </Alert> */}
                 <Formik
                   validationSchema={validationSchema}
                   onSubmit={handleFormSubmit}
@@ -76,7 +71,7 @@ function Login() {
                               <p
                                 className={`${styles.contactFormParagh} text-center text-dark`}
                               >
-                                Faucibus ultrices facilisis odio amet, luctus
+                                faucibus ultrices facilisis odio amet, luctus
                                 vehicula, turpis elit. Sed placerat.
                               </p>
                             </div>
@@ -100,28 +95,33 @@ function Login() {
 
                             <div className="col-12 mx-auto my-2 mt-4">
                               <Button
-                                type="submit"
-                                className="btn w-100 bg-primary bg-opacity-50 py-3 text-white me-2 mb-4 mb-sm-0"
                                 disabled={isSubmitting}
+                                type="submit"
+                                // variant={isSubmitting ? "secondary" : "primary"}
+                                className={`btn w-100 ${
+                                  isSubmitting ? "bg-secondary" : "bg-primary"
+                                } bg-opacity-50 py-3 text-white me-2 mb-4 mb-sm-0`}
                               >
+                                {/* {isSubmitting ? "Submitting..." : "Login >>"} */}
                                 {isSubmitting ? (
-                                  "Logging in..."
+                                  <Spinner animation="border" role="status">
+                                    <span className="visually-hidden">
+                                      Loading...
+                                    </span>
+                                  </Spinner>
                                 ) : (
-                                  <>
-                                    <FaLock />
-                                    Login &gt;&gt;
-                                  </>
+                                  "Login"
                                 )}
                               </Button>
                             </div>
 
                             <div className="col-12 mt-4 d-flex justify-content-between">
                               <a href="./index.html">
-                                <FaArrowLeft /> Back
+                                <FaArrowLeft/> back
                               </a>
-                              <a href="signup.html">
+                              <a href="./signup">
                                 {" "}
-                                Signup <FaArrowRight />
+                                Singup <FaArrowRight/>
                               </a>
                             </div>
                           </div>
@@ -135,14 +135,6 @@ function Login() {
           </div>
         </section>
       </HeadPage>
-
-      {alert && (
-        <AlertMessage
-          variant={alert.variant}
-          message={alert.message}
-          onClose={() => setAlert(null)}
-        />
-      )}
     </>
   );
 }

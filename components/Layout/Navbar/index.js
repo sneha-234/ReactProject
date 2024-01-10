@@ -37,7 +37,7 @@ function NavbarPage() {
 
                 <Nav className = "me-auto">
                     <Link href="/" className="nav-link">Home</Link>
-                    <Link href="#pricing" className="nav-link">User List</Link>
+                    <Link href="/Users" className="nav-link">User List</Link>
                     <Link href="#pricing" className="nav-link">Profile</Link>
                 </Nav>
                 <div className='nav my-3 my-xl-0 px-md-4 flex-nowrap align-items-center'>
