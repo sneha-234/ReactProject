@@ -1,7 +1,7 @@
-import LayoutPage from "@/components/layout";
-import useAuth from "@/utils/hooks/useAuth";
+import LayoutPage from "@/components/Layout";
+import useAuth from "@/hook/useAuth";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React  from "react";
 
 function UserShow() {
   const router = useRouter();
