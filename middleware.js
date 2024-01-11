@@ -20,7 +20,7 @@ export default function middleware(req) {
     !NO_AUTH_PATHS.includes(pathname) &&
     !AUTH_NOT_ALLOWED_PATHS.includes(pathname)
   ) {
-    return NextResponse.redirect(new URL("./login" , "./signup" , req.url));
+    return NextResponse.redirect(new URL("./login" , req.url));
   }
 }
 

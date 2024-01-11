@@ -8,9 +8,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import * as yup from "yup";
-import InputField from "../fields";
+import { InputField } from "../fields";
 import { loginService } from "@/services/authservices";
-import { FaArrowLeft, FaArrowRight, FaLock } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const defaultValues = {
   email: "",
@@ -19,25 +19,41 @@ const defaultValues = {
 
 function Login() {
   const router = useRouter();
+
   const handleFormSubmit = async (values) => {
-    console.log ("values" , values)
     const res = await loginService({
       password: values.password,
       email: values.email,
     });
 
     if (res.success) {
-      router.replace("./Users");
+      // window.location = "/users";
+      router.replace("/users");
     } else {
       alert(res.message);
     }
-   
+    // await axios
+    //   .post("https://reqres.in/api/login", {
+    //     email: values.email,
+    //     password: values.password,
+    //   })
+    //   .then(function (response) {
+    //     localStorage.setItem("userAuthToken", response.data.token);
+    //     window.location = "/users";
+    //   })
+    //   .catch(function (error) {
+    //     if (error?.response?.status == 400) {
+    //       alert(error.response?.data?.error);
+    //     } else {
+    //       alert(error.message);
+    //     }
+    //   });
   };
 
   const validationSchema = yup.object().shape({
     email: yup.string().required().email(),
     password: yup.string().required().min(6).max(20),
-
+    // terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
   });
 
   return (
@@ -119,7 +135,7 @@ function Login() {
                               <a href="./home">
                                 <FaArrowLeft/> back
                               </a>
-                              <a href="./signup">
+                              <a href="signup.html">
                                 {" "}
                                 Singup <FaArrowRight/>
                               </a>
