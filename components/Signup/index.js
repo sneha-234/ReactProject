@@ -5,9 +5,10 @@ import { Button, Form, Container, Row, Col, Spinner } from "react-bootstrap";
 import HeadPage from "../Layout/headPage";
 import HEAD_TITLE from "@/utils/titleConstant";
 import styles from "./style.module.css";
-import InputField from "../fields";
+import { CheckboxField , InputField } from "../fields";
 import { SignUpService } from "@/services/authservices";
 import { useRouter } from "next/router";
+import {FaArrowLeft , FaArrowRight} from "react-icons/fa";
 
 
 
@@ -28,20 +29,7 @@ const validationSchema = yup.object().shape({
   termsAndCondition: yup.boolean().oneOf([true], "Please accept the terms and conditions"),
 });
 
-const CheckboxField = ({ field, form, label, ...props }) => (
-  <Form.Group controlId={field.name}>
-    <Form.Check
-      type="checkbox"
-      label={label}
-      checked={field.value}
-      onChange={() => form.setFieldValue(field.name, !field.value)}
-      isInvalid={form.errors[field.name] && form.touched[field.name]}
-    />
-    <Form.Control.Feedback type="invalid">
-      {form.errors[field.name]}
-    </Form.Control.Feedback>
-  </Form.Group>
-);
+
 
  
 function Signup() {
@@ -51,15 +39,16 @@ function Signup() {
   const router = useRouter();
 
   const handleFormSubmit = async (values) => {
+    console.log ("values" , values)
     const res = await SignUpService({
       password: values.password,
       email: values.email,
       confirmPassword: values.confirmPassword,
-      termsAndCondition: termsAndCondition
+      termsAndCondition: values.termsAndCondition
     });
 
     if (res.success) {
-      router.replace("./login");
+      router.replace("./home");
     } else {
       alert(res.message);
     }
@@ -141,6 +130,15 @@ function Signup() {
                             "SignUp"
                           )}
                         </Button>
+                        <div className="col-12 mt-4 d-flex justify-content-between">
+                              <a href="./home">
+                                <FaArrowLeft/> back
+                              </a>
+                              <a href="./login">
+                                {" "}
+                                Login <FaArrowRight/>
+                              </a>
+                            </div>
                       </div>
                     </Row>
                   </div>

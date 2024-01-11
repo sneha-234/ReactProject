@@ -1,3 +1,4 @@
+import COOKIES from "@/utils/cookieConstant";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -7,7 +8,7 @@ export const loginService = async ({ email, password }) => {
       email: email,
       password: password,
     });
-    Cookies.set( "gemstoken" , res.data.token, {
+    Cookies.set( COOKIES , res.data.token, {
       expires: new Date(new Date().getTime() + 10 * 60 * 1000),
     });
 
@@ -30,7 +31,7 @@ export const SignUpService = async ({email , password , confirmPassword, termsAn
       termsAndCondition: termsAndCondition
     });
 
-    Cookies.set( "gemstoken" , res.data.token, {
+    Cookies.set( COOKIES , res.data.token, {
       expires: new Date(new Date().getTime() + 10 * 60 * 1000),
     });
 

@@ -19,8 +19,8 @@ const defaultValues = {
 
 function Login() {
   const router = useRouter();
-
   const handleFormSubmit = async (values) => {
+    console.log ("values" , values)
     const res = await loginService({
       password: values.password,
       email: values.email,
@@ -116,7 +116,7 @@ function Login() {
                             </div>
 
                             <div className="col-12 mt-4 d-flex justify-content-between">
-                              <a href="./index.html">
+                              <a href="./home">
                                 <FaArrowLeft/> back
                               </a>
                               <a href="./signup">
