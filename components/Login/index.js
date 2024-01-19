@@ -4,7 +4,6 @@ import HEAD_TITLE from "@/utils/titleConstant";
 import styles from "./style.module.css";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { Field, Formik } from "formik";
-import axios from "axios";
 import { useRouter } from "next/router";
 
 import * as yup from "yup";
@@ -28,7 +27,7 @@ function Login() {
 
     if (res.success) {
       // window.location = "/users";
-      router.replace("/users");
+      router.replace("/Users");
     } else {
       alert(res.message);
     }
@@ -135,7 +134,7 @@ function Login() {
                               <a href="./home">
                                 <FaArrowLeft/> back
                               </a>
-                              <a href="signup.html">
+                              <a href="./signup">
                                 {" "}
                                 Singup <FaArrowRight/>
                               </a>

@@ -1,12 +1,20 @@
-//import '@/styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+// import '@/styles/globals.css'
+import "@/styles/custom.css";
+import "@/styles/theme.min.css";
+import { useStore, Provider } from "react-redux";
+import { wrapper } from "@/utils/store";
 
-
-import '@/styles/custom.css'
-import '@/styles/theme.min.css'
-
-export default function App({ Component, pageProps }) {
+const WrappedApp = wrapper.withRedux(({ Component, pageProps }) => {
+  // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
+  const store = useStore();
 
-  return getLayout(<Component {...pageProps} />);
-}
+  return getLayout(
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
+});
+
+export default WrappedApp;

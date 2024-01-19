@@ -3,13 +3,10 @@ import React from "react";
 import {FaTrash , FaPlus} from "react-icons/fa"
 
 function User(props) {
-  const { data ,lane,
-  rupees,
-  containerStyle, ratings } = props;
-  console.log ("data " ,data)
+  const { data } = props;
 
   return (
-    <div className={`candidate-list-box card border-0 mt-4  bg-blue bg-opacity-15`}>
+    <div className="candidate-list-box card border-0 mt-4 bg-warning bg-opacity-15">
       <div className="p-4 card-body">
         <div className="align-items-center row">
           <div className="col-auto">
@@ -32,16 +29,16 @@ function User(props) {
                   {data.first_name} {data.last_name}
                 </a>
                 <span className="badge bg-success ms-1">
-                  <i className="mdi mdi-star align-middle"></i> 4.8
+                  <i className="mdi mdi-star align-middle"></i>4.8
                 </span>
               </h5>
               <p className="text-dark mb-2">{data.email}</p>
               <ul className="list-inline mb-0 text-dark">
                 <li className="list-inline-item">
-                  <i className="mdi mdi-map-marker"></i> BHOPAL
+                  <i className="mdi mdi-map-marker"></i> Oakridge Lane Bhopal
                 </li>
                 <li className="list-inline-item">
-                  <i className="mdi mdi-wallet"></i> RS 4567/HOUR
+                  <i className="mdi mdi-wallet"></i> RS.4650 / hours
                 </li>
               </ul>
             </div>
@@ -60,10 +57,11 @@ function User(props) {
         </div>
         <div className="favorite-icon d-flex edit-delete-list-btn">
           <a href="#" className="btn bg-purple d-block">
-            <FaPlus/> edit
+            < FaPlus/> edit
           </a>
           <a href="#" className="btn bg-danger d-block">
-            <FaTrash/> delete
+            <FaTrash/>
+            delete
           </a>
         </div>
       </div>

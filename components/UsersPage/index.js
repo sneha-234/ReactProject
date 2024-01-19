@@ -1,46 +1,53 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Pagination } from "react-bootstrap";
-import ContentLoader from "react-content-loader";
+
 import User from "./user";
+import { loadData } from "@/reducers/userData";
+import { useDispatch, useSelector } from "react-redux";
+import MyPagination from "./myPagination";
+import ContentLoader from "react-content-loader";
+import NextButton from "./nextButton";
+
 
 function UsersPage() {
-  const [usersData, setUsersData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  // const [usersData, setUsersData] = useState([]);
+  const [loading ,setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const userObj= useSelector((state) => state.users);
 
-  const getUsersData = (page = 1) => {
-    setLoading(true);
+  const getUsersData = ({page}) => {
+    setLoading(true)
     axios
       .get("https://reqres.in/api/users", {
         params: {
-          page,
+          page: page,
         },
       })
       .then(function (res) {
-        setUsersData(res.data.data);
-        setError(null);
+        console.log("===res.data===", res.data);
+        dispatch(loadData(res.data));
+        setLoading(false)
       })
       .catch(function (error) {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
+        if (error?.response?.status == 400) {
+          alert(error.response?.data?.error);
+        } else {
+          setError(error.message)
+          setLoading(false)
+
+        }
       });
   };
 
   useEffect(() => {
-    getUsersData();
+    getUsersData({page :1});
   }, []);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    getUsersData(pageNumber);
-  };
 
   const UserContentLoader = () => (
-    <ContentLoader
+    <ContentLoader 
       speed={2}
       width={400}
       height={160}
@@ -55,6 +62,7 @@ function UsersPage() {
     </ContentLoader>
   );
 
+
   return (
     <section className="user-list my-4">
       <div className="container">
@@ -62,11 +70,12 @@ function UsersPage() {
           <div className="col-12">
             <h2>User List</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Explicabo quae dolore dolores doloribus tempore velit excepturi
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
+              quae dolore dolores doloribus tempore velit excepturi
               exercitationem!
             </p>
-          </div>
+
+            </div>
           <div className="col">
           
             {loading ? (
@@ -78,29 +87,29 @@ function UsersPage() {
             ) : (
               <div>
                 <div className="candidate-list">
-                   {usersData.map((userData) => {
+                   {userObj.data.map((userData) => {
                 return <User key={userData.id} data={userData} />;
               })}
                 </div>
               
-                <Pagination className="mt-3">
-                  <Pagination.First onClick={() => handlePageChange(1)} />
-                  <Pagination.Prev
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  />
-                  <Pagination.Item active>{currentPage}</Pagination.Item>
-                  <Pagination.Next
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === 2}
-                  />
-                </Pagination>
+                
               </div>
             )}
           </div>
         </div>
+        {<NextButton
+          totalPages={userObj.totalPages}
+          getUsersData={getUsersData}
+          currentPage={userObj.currentPage}
+        /> }
+        {/* {<MyPagination
+        totalPages = {userObj.totalPages}
+        currentPage = {userObj.currentPage}
+        getUsersData = {getUsersData}/>} */}
       </div>
     </section>
   );
 }
-export default UsersPage
+          
+          
+export default UsersPage;
